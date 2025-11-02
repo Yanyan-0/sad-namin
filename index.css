@@ -1,0 +1,383 @@
+/* ==============================
+   RESET & BASE STYLES
+============================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins, sans-serif;
+}
+
+/* ==============================
+   NAVBAR
+============================== */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #004080;
+  color: white;
+  padding: 15px 30px;
+}
+
+nav .logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+nav .menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+nav .menu a {
+  color: white;
+  margin: 0 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav .menu a:hover {
+  color: #ffcc00;
+}
+
+/* Username and Logout styling */
+nav .menu span {
+  color: #ffcc00;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+nav .menu a.logout-btn {
+  background-color: #ffcc00;
+  color: #004080;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+nav .menu a.logout-btn:hover {
+  background-color: #e6b800;
+  color: #00264d;
+}
+
+/* ==============================
+   HEADER
+============================== */
+header {
+  background: linear-gradient(rgba(0, 64, 128, 0.6), rgba(0, 102, 204, 0.6)),
+    url("pexels-karolina-grabowska-7285980.jpg") no-repeat center center / cover;
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+header p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+header button {
+  background: #ffcc00;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+header button:hover {
+  background: #e6b800;
+  transform: scale(1.05);
+}
+
+/* ==============================
+   CATEGORIES
+============================== */
+.section-title {
+  text-align: center;
+  margin: 50px 0 20px;
+  font-size: 1.8rem;
+  color: #004080;
+}
+
+.categories {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.cat-card {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 220px;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.cat-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
+}
+
+.cat-card h3 {
+  color: #004080;
+  font-size: 1.1rem;
+}
+
+.cat-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  background: #eef4ff;
+  box-shadow: 0 6px 15px rgba(0, 64, 128, 0.2);
+}
+
+/* ==============================
+   ABOUT SECTION (DIV)
+============================== */
+#about {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: #f5f7fa;
+  padding: 80px 20px;
+  gap: 40px;
+  border-radius: 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 60px auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#about:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 64, 128, 0.2);
+}
+
+#about .about-img {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+}
+
+#about .about-img img {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
+}
+
+#about .about-text {
+  flex: 1;
+  min-width: 300px;
+  color: #333;
+}
+
+#about .about-text h2 {
+  color: #004080;
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+#about .about-text p {
+  line-height: 1.7;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* ==============================
+   CONTACT SECTION (DIV)
+============================== */
+#contact {
+  background: #eaf2ff;
+  padding: 80px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  border-radius: 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 60px auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#contact:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 64, 128, 0.2);
+}
+
+#contact .contact-info {
+  flex: 1;
+  min-width: 300px;
+}
+
+#contact .contact-info h2 {
+  color: #004080;
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+#contact .contact-info p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.7;
+}
+
+#contact .map {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+}
+
+#contact .map img {
+  width: 100%;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ==============================
+   FOOTER
+============================== */
+footer {
+  background: #004080;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 40px;
+}
+
+/* ==============================
+   MODALS
+============================== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+}
+p .pmodal {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #333;
+}
+
+p .pmodal a {
+  color: #004080;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  width: 350px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  color: #000;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  color: #004080;
+}
+
+.modal-content input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.modal-content button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 8px;
+  border: none;
+  background: #004080;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.modal-content button:hover {
+  background: #0066cc;
+  transform: scale(1.03);
+}
+
+.modal-content a {
+  display: block;
+  margin-top: 15px;
+  color: #004080;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.modal-content a:hover {
+  text-decoration: underline;
+}
+
+.close {
+  float: right;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  color: black;
+}
+
+.close:hover {
+  color: #ff0000;
+}
+
+/* ==============================
+   RESPONSIVE DESIGN
+============================== */
+@media (max-width: 900px) {
+  #about, #contact {
+    flex-direction: column;
+    text-align: center;
+    padding: 50px 20px;
+  }
+
+  .about-img img,
+  .map img {
+    max-width: 100%;
+  }
+
+  .about-text,
+  .contact-info {
+    width: 100%;
+  }
+}
