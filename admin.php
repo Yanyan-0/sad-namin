@@ -67,7 +67,7 @@ $products = $conn->query("SELECT * FROM products");
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Dashboard - Abeth Hardware</title>
-<link rel="stylesheet" href="admin.css">
+<link rel="stylesheet" href="admin.css?v=<?= time() ?>">
 </head>
 <body>
 
@@ -94,37 +94,8 @@ function toggleMenu() {
 <div class="admin-panel" id="products">
   <h3>Manage Products</h3>
 
-  <form method="POST" enctype="multipart/form-data" class="add-form">
-    <input type="text" name="name" placeholder="Product Name" required class = "name">
-    
-    <!-- 🆕 Category Dropdown -->
-    <select name="category" required class = "dropdown">
-      <option value="">Select Category</option>
-      <option value="Longspan">Longspan</option>
-      <option value="Yero">Yero</option>
-      <option value="Yero (B)">Yero (B)</option>
-      <option value="Gutter">Gutter</option>
-      <option value="Flashing">Flashing</option>
-      <option value="Plain Sheet G1">Plain Sheet G1</option>
-      <option value="Shoa Board">Shoa Board</option>
-      <option value="Norine Flywood">Norine Flywood</option>
-      <option value="Fly Board">Flyboard</option>
-      <option value="Pheno UC Board">Pheno UC Board</option>
-      <option value="Coco Lumber">Coco Lumber</option>
-      <option value="Flush Boor">Flush Boor</option>
-      <option value="Savor Bar">Savor Bar</option>
-      <option value="Flot Bar">Flot Bar</option>
-      <option value="KD Good Lumber">KD Good Lumber</option>
-      <option value="Plain Round Bar">Plain Round Bar</option>
-      <option value="Insulation">Insulation</option>
-      
-    </select>
-
-    <input type="number" step="0.01" name="price" placeholder="Price" required class = "price">
-    <input type="number" name="stock" placeholder="Stock" required class = "stock">
-    <input type="file" name="image" accept="image/*" class = "picture">
-    <button type="submit" name="add_product" class="add-btn">Add Product</button>
-  </form>
+  <!-- Add Product Button -->
+  <button onclick="openAddProductModal()" class="add-product-btn">+ Add Product</button>
 
   <!-- 🔍 SEARCH BAR -->
   <input type="text" id="searchInput" placeholder="Search product..." class="search-bar">
@@ -133,7 +104,8 @@ function toggleMenu() {
     <tr>
       <th>ID</th>
       <th>Name</th>
-      <th>Category</th> 
+      <th>Category</th>
+      <th>Description</th>
       <th>Price</th>
       <th>Stock</th>
       <th>Image</th>
@@ -144,7 +116,7 @@ function toggleMenu() {
         <tr>
           <td><?= $p['id'] ?></td>
           <td><?= htmlspecialchars($p['name']) ?></td>
-          <td><?= htmlspecialchars($p['category'] ?? 'N/A') ?></td> <!-- 🆕 -->
+          <td><?= htmlspecialchars($p['category'] ?? 'N/A') ?></td>
           <td><?= htmlspecialchars($p['description']) ?></td>
           <td>₱<?= number_format($p['price'], 2) ?></td>
           <td><?= $p['stock'] ?></td>
@@ -177,6 +149,73 @@ function toggleMenu() {
   </table>
 </div>
 
+<!-- Add Product Modal -->
+<div id="addProductModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Add New Product</h2>
+      <span class="close-modal" onclick="closeAddProductModal()">&times;</span>
+    </div>
+    <form method="POST" enctype="multipart/form-data" class="modal-form">
+      <div class="form-group">
+        <label for="modal-name">Product Name</label>
+        <input type="text" id="modal-name" name="name" placeholder="Product Name" required>
+      </div>
+      
+      <div class="form-group">
+        <label for="modal-category">Category</label>
+        <select id="modal-category" name="category" required>
+          <option value="">Select Category</option>
+          <option value="Longspan">Longspan</option>
+          <option value="Yero">Yero</option>
+          <option value="Yero (B)">Yero (B)</option>
+          <option value="Gutter">Gutter</option>
+          <option value="Flashing">Flashing</option>
+          <option value="Plain Sheet G1">Plain Sheet G1</option>
+          <option value="Shoa Board">Shoa Board</option>
+          <option value="Norine Flywood">Norine Flywood</option>
+          <option value="Fly Board">Flyboard</option>
+          <option value="Pheno UC Board">Pheno UC Board</option>
+          <option value="Coco Lumber">Coco Lumber</option>
+          <option value="Flush Boor">Flush Boor</option>
+          <option value="Savor Bar">Savor Bar</option>
+          <option value="Flot Bar">Flot Bar</option>
+          <option value="KD Good Lumber">KD Good Lumber</option>
+          <option value="Plain Round Bar">Plain Round Bar</option>
+          <option value="Insulation">Insulation</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="modal-description">Description</label>
+        <textarea id="modal-description" name="description" placeholder="Product Description" rows="3"></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="modal-price">Price</label>
+          <input type="number" step="0.01" id="modal-price" name="price" placeholder="Price" required>
+        </div>
+
+        <div class="form-group">
+          <label for="modal-stock">Stock</label>
+          <input type="number" id="modal-stock" name="stock" placeholder="Stock" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="modal-image">Product Image</label>
+        <input type="file" id="modal-image" name="image" accept="image/*">
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" onclick="closeAddProductModal()" class="cancel-btn">Cancel</button>
+        <button type="submit" name="add_product" class="submit-btn">Add Product</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- 🔍 LIVE SEARCH -->
 <script>
 document.getElementById("searchInput").addEventListener("keyup", function() {
@@ -188,6 +227,23 @@ document.getElementById("searchInput").addEventListener("keyup", function() {
     row.style.display = text.includes(filter) ? "" : "none";
   });
 });
+
+// Modal Functions
+function openAddProductModal() {
+  document.getElementById("addProductModal").style.display = "block";
+}
+
+function closeAddProductModal() {
+  document.getElementById("addProductModal").style.display = "none";
+}
+
+// Close modal when clicking outside of it
+window.onclick = function(event) {
+  const modal = document.getElementById("addProductModal");
+  if (event.target == modal) {
+    closeAddProductModal();
+  }
+}
 </script>
 
 </body>
