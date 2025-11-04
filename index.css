@@ -313,7 +313,7 @@ p .pmodal a {
 .modal-content input {
   width: 100%;
   padding: 12px;
-  margin: 10px 0;
+  margin: 12px 0; /* slightly more space between inputs */
   border-radius: 8px;
   border: 1px solid #ccc;
   outline: none;
@@ -345,6 +345,19 @@ p .pmodal a {
   font-size: 14px;
 }
 
+/* Make sure the helper paragraph under submit has breathing room */
+.modal-content form p {
+  margin-top: 10px;
+  margin-bottom: 0;
+  line-height: 1.2;
+}
+
+/* extra spacing for the submit button to separate it from inputs & helper text */
+.modal-content button[type="submit"] {
+  margin-top: 18px;
+  margin-bottom: 8px;
+}
+
 .modal-content a:hover {
   text-decoration: underline;
 }
@@ -360,6 +373,41 @@ p .pmodal a {
 .close:hover {
   color: #ff0000;
 }
+
+/* PASSWORD TOGGLE (eye) inside input override
+   Specific styles to keep the eye icon inside the input field
+   and prevent it from inheriting the generic modal button rules. */
+.modal-content .password-field { position: relative; }
+.modal-content .password-field .password-input {
+  padding-right: 52px; /* space for circular eye */
+  background: #eaf6ff; /* light blue fill like the example */
+  border: 1px solid #9fbddf; /* subtle bluish border */
+}
+.modal-content .password-field .password-toggle {
+  position: absolute;
+  right: 8px; /* closer to edge like screenshot */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #c9d8e6; /* thin border like small circle */
+  background: #ffffff; /* white circular background */
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  z-index: 3; /* sit above the input */
+}
+.modal-content .password-field .password-toggle svg { width: 14px; height: 14px; display: block; pointer-events: none; opacity: 0.95; }
+.modal-content .password-field .password-toggle:hover { box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
+.modal-content .password-field .password-toggle:focus { outline: none; box-shadow: 0 0 0 3px rgba(0,64,128,0.08); }
+
+/* Ensure password-toggle doesn't inherit full-width from .modal-content button */
+.modal-content .password-toggle { width: auto; background: transparent; }
 
 /* ==============================
    RESPONSIVE DESIGN
@@ -380,4 +428,14 @@ p .pmodal a {
   .contact-info {
     width: 100%;
   }
+}
+
+/* Strong override to ensure eye toggle is small and circular inside inputs (cache-bust safety) */
+.modal-content .password-field .password-toggle {
+  width: 30px !important;
+  height: 30px !important;
+  right: 8px !important;
+  background: #fff !important;
+  border-radius: 50% !important;
+  border: 1px solid #c9d8e6 !important;
 }

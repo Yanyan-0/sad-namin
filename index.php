@@ -7,7 +7,7 @@ session_start();
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Abeth Hardware</title>
-  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="index.css?v=<?php echo filemtime(__DIR__ . '/index.css'); ?>" />
 </head>
 <body>
 
@@ -23,8 +23,8 @@ session_start();
         <span>Welcome, <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong></span>
         <a href="logout.php">Logout</a>
       <?php else: ?>
-        <a href="#" onclick="openModal('login-modal')">Log In</a> |
-        <a href="#" onclick="openModal('register-modal')">Sign Up</a>
+  <a href="#" onclick="openModal('login-modal'); return false;">Log In</a> |
+  <a href="#" onclick="openModal('register-modal'); return false;">Sign Up</a>
       <?php endif; ?>
     </div>
   </nav>
@@ -99,7 +99,16 @@ session_start();
       <h2>Sign In</h2>
       <form method="POST" action="login.php">
         <input type="text" name="username" placeholder="Username or Email" required>
-        <input type="password" name="password" placeholder="Password" required>
+  <div class="password-field">
+          <input id="login-password" type="password" name="password" placeholder="Password" required class="modal-input password-input">
+          <button type="button" class="password-toggle" onclick="togglePassword('login-password', this)" aria-pressed="false" aria-label="Show password" title="Show password"> 
+            <!-- eye icon (open) -->
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke="#004080" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="3" stroke="#004080" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
         <button type="submit">Sign In</button>
         <p>Don’t have an account? <a href="#" onclick="switchModal('login-modal','register-modal')">Sign Up</a></p>
       </form>
@@ -115,23 +124,87 @@ session_start();
         <input type="text" name="fname" placeholder="First Name" required>
         <input type="text" name="lname" placeholder="Last Name" required>
         <input type="text" name="address" placeholder="Address" required>
-        <input type="text" name="contact" placeholder="Contact Number" required>
         <input type="email" name="email" placeholder="Email" required>
         <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Register</button>
-        <p>Already have an account? <a href="#" onclick="switchModal('register-modal','login-modal')">Login</a></p>
+  <div class="password-field">
+          <input id="register-password" type="password" name="password" placeholder="Password" required class="modal-input password-input">
+          <button type="button" class="password-toggle" onclick="togglePassword('register-password', this)" aria-pressed="false" aria-label="Show password" title="Show password"> 
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke="#004080" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="3" stroke="#004080" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <!-- Confirm password -->
+  <div class="password-field">
+          <input id="register-password-confirm" type="password" name="password_confirm" placeholder="Confirm Password" required class="modal-input password-input">
+          <button type="button" class="password-toggle" onclick="togglePassword('register-password-confirm', this)" aria-pressed="false" aria-label="Show password" title="Show password"> 
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke="#004080" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="3" stroke="#004080" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <button type="submit">Create Account</button>
+        <p>Already have an account? <a href="#" onclick="switchModal('register-modal','login-modal'); return false;">Login</a></p>
       </form>
     </div>
   </div>
 
   <script>
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    function switchModal(hideId, showId) { closeModal(hideId); openModal(showId); }
+    // Modal helpers
+    function openModal(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.style.display = 'flex';
+    }
+
+    function closeModal(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.style.display = 'none';
+    }
+
+    function switchModal(fromId, toId) {
+      closeModal(fromId);
+      openModal(toId);
+    }
+
+    // Close modal when clicking outside
     window.onclick = function(event) {
-      if (event.target.classList.contains('modal')) event.target.style.display = 'none';
+      if (event.target && event.target.classList && event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+      }
     };
+
+    /**
+     * Toggle password visibility for a given input id.
+     * Swaps input type and toggles the eye / eye-off icon inside the button.
+     * @param {string} targetId - the id of the password input
+     * @param {HTMLElement} btn - the button element clicked
+     */
+    function togglePassword(targetId, btn) {
+      var input = document.getElementById(targetId);
+      if (!input) return;
+      var isHidden = input.type === 'password';
+      if (isHidden) {
+        input.type = 'text';
+        btn.setAttribute('aria-pressed', 'true');
+        btn.title = 'Hide password';
+        btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+          '<path d="M17.94 17.94A10.94 10.94 0 0 1 12 19c-7 0-11-7-11-7a20.24 20.24 0 0 1 5.61-5.44" stroke="#004080" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '<path d="M1 1l22 22" stroke="#004080" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '</svg>';
+      } else {
+        input.type = 'password';
+        btn.setAttribute('aria-pressed', 'false');
+        btn.title = 'Show password';
+        btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+          '<path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z" stroke="#004080" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '<circle cx="12" cy="12" r="3" stroke="#004080" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>' +
+          '</svg>';
+      }
+    }
   </script>
 
 </body>
