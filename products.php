@@ -262,9 +262,15 @@ if ($transactions_result) {
               <?= htmlspecialchars($p['category']) ?>
               <p><strong>₱<?= number_format($p['price'], 2) ?></strong></p>
               <form method="POST">
-                <input type="hidden" name="product_id" value="<?= $p['id'] ?>">
-                <button type="submit" class="add-cart-btn" name="add_to_cart">Add to Cart</button>
-              </form>
+  <input type="hidden" name="product_id" value="<?= $p['id'] ?>">
+
+  <?php if ($p['stock'] > 0): ?>
+    <button type="submit" class="add-cart-btn" name="add_to_cart">Buy</button>
+  <?php else: ?>
+    <button type="button" class="add-cart-btn" disabled style="background-color: #999; cursor: not-allowed;">Out of Stock</button>
+  <?php endif; ?>
+</form>
+
             </div>
           </div>
         <?php endwhile; ?>

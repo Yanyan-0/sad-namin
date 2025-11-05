@@ -66,7 +66,7 @@
     <!-- ABOUT -->
     <div id="about">
       <div class="about-img">
-        <img src="about.jpg" alt="About Abeth Hardware">
+        <img src="images/about-us.jpg" alt="About Abeth Hardware">
       </div>
       <div class="about-text">
         <h2>About Us</h2>

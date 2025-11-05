@@ -755,3 +755,25 @@ nav .menu a.logout-btn:hover {
       padding: 10px 0;
     }
   }
+
+  /* Floating POS Button */
+.pos-float-btn {
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 14px 22px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  transition: background 0.3s, transform 0.2s;
+  z-index: 999;
+}
+
+.pos-float-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}

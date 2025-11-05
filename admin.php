@@ -253,6 +253,11 @@ window.onclick = function(event) {
 }
 </script>
 
+<!-- Floating POS Button -->
+<a href="pos.php" class="pos-float-btn" title="Open POS">
+  🛒 POS
+</a>
+
 </body>
 </html>
     
