@@ -12,7 +12,14 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$products = $conn->query("SELECT * FROM products_ko ORDER BY category, name");
+$selected_category = isset($_GET['category']) ? $conn->real_escape_string($_GET['category']) : '';
+if (!empty($selected_category)) {
+    $products = $conn->query("SELECT * FROM products_ko WHERE archive = 0 AND category = '$selected_category' ORDER BY id DESC");
+} else {
+    $products = $conn->query("SELECT * FROM products_ko WHERE archive = 0 ORDER BY id DESC");
+}
+$categories = $conn->query("SELECT DISTINCT category FROM products_ko WHERE category IS NOT NULL AND category != ''");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
